@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding</title>
+</head>
+<body>
+
+<script>
+    var arr = [];
+    for (var i = 0; i < 20; i++) {
+        arr.push(parseInt(Math.random() * 100));
+    }
+    console.log(arr);
+    //    bubbleSort(arr);
+    console.log(quickSort(arr));
+
+    function bubbleSort(arr) {
+        var isSwap;
+        for (var i = 0, length = arr.length; i < length - 1; i++) {
+            isSwap = false;
+            for (var j = i + 1; j < length; j++) {
+                if (arr[j] < arr[i]) {
+                    isSwap = true;
+                    swap(arr, i, j);
+                }
+            }
+            if (isSwap === false)
+                return;
+        }
+    }
+
+    function quickSort(arr) {
+        if (arr.length <= 1) {
+            return arr;
+        }
+        var left = [], right = [];
+        var q = arr[0];
+        for (var i = 1, length = arr.length; i < length; i++) {
+            if (arr[i] < q) {
+                left.push(arr[i]);
+            } else {
+                right.push(arr[i])
+            }
+        }
+        return [].concat(quickSort(left), [q], quickSort(right))
+    }
+
+    function swap(arr, a, b) {
+        var t = arr[a];
+        arr[a] = arr[b];
+        arr[b] = t;
+    }
+
+    //    判断字符串是否是回文
+    function isReverse(str) {
+        return str === str.split('').reverse().join('');
+    }
+    //    console.log(isReverse('hello'));
+    //    console.log(isReverse('helleh'));
+
+    //    数组去重
+    function unique(arr) {
+//        哈希表判断
+        var hashTable = [];
+        var data = [];
+        for (var i = 0, length = arr.length; i < length; i++) {
+            if (!hashTable[arr[i]]) {
+                hashTable[arr[i]] = true;
+                data.push(arr[i]);
+            }
+        }
+        return data;
+    }
+    function unique2(arr) {
+//        位置判断
+        var data = [];
+        for (var i = 0, length = arr.length; i < length; i++) {
+            if (arr.indexOf(arr[i]) === i) {
+                data.push(arr[i]);
+            }
+        }
+        return data;
+    }
+    function unique3(arr) {
+        var unique = new Set(arr);
+        return Array.from(unique);
+    }
+    var arr = [1, 13, 24, 11, 11, 14, 1, 2];
+    //    console.log(unique(arr));
+    console.log(unique2(arr));
+
+    //    数组去重 END
+
+    //    统计字符出现次数
+    function getCharMax(str) {
+        if (typeof str !== 'string')
+            return;
+        var obj = new Object();
+        var maxChar, maxNum = 0;
+        for (var i = 0, length = str.length; i < length; i++) {
+            var char = str.charAt(i);
+            obj[char] = obj[char] || 0;
+            obj[char]++;
+        }
+        for (var key in obj) {
+            if (obj[key] > maxNum) {
+                maxChar = key;
+                maxNum = obj[key];
+            }
+        }
+        return [maxChar, maxNum];
+    }
+    //    console.log(getCharMax('aaaajflekwjflwkncnieojfjffjfjfjfe'))
+    //    统计字符出现次数 END
+
+    //    随机生成指定长度的字符串
+    function randomString(n) {
+        var str = 'abcdefghijklmnopqrstuvwxyz9876543210';
+        var l = str.length;
+        var newStr = '';
+        for (var i = 0; i < n; i++) {
+//            Math.floor(X) 返回小于等于X的最大整数
+//            Math.random() 返回 0.0 到 1.0 的伪随机数
+            newStr += str.charAt(Math.floor(Math.random() * l));
+        }
+        return newStr;
+    }
+    console.log(randomString(8));
+    //    随机生成指定长度的字符串 END
+</script>
+</body>
+</html>
